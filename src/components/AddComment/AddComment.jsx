@@ -1,9 +1,11 @@
 import { useState } from "react"
+import "./AddComment.css"
 
 const AddComment = ({ asin }) => {
     const [newComment, setNewComment] = useState({
         comment: "",
-        rate: 0, // 🔥 importante
+        // elementId deve corrispondere all'asin del libro selezionato.
+        rate: 0,
         elementId: asin
     })
 
@@ -31,8 +33,8 @@ const AddComment = ({ asin }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
+        <form className="add-comment-form" onSubmit={handleSubmit}>
+            <input className="add-comment-input"
                 type="text"
                 placeholder="Scrivi una recensione"
                 value={newComment.comment}
@@ -44,9 +46,9 @@ const AddComment = ({ asin }) => {
                 }
             />
 
-            <div>
+            <div className="stars-wrapper">
                 {[1, 2, 3, 4, 5].map((star) => (
-                    <span
+                    <span className="star"
                         key={star}
                         style={{
                             cursor: "pointer",
@@ -64,7 +66,7 @@ const AddComment = ({ asin }) => {
                 ))}
             </div>
 
-            <button type="submit">Invia</button>
+            <button className="add-comment-btn" type="submit">Invia</button>
         </form>
     )
 }

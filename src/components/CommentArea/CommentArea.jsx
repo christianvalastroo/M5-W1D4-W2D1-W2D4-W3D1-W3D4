@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 import CommentsList from "../CommentList/CommentList"
 import AddComment from "../AddComment/AddComment"
+import "./CommentArea.css"
 
 const CommentArea = ({ asin }) => {
 
     const [comments, setComments] = useState([])
 
-    useEffect(() => {
-
+    const fetchComments = () => {
         fetch(`https://striveschool-api.herokuapp.com/api/books/${asin}/comments/`, {
             headers: {
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ3ZWEyYzg5ODA5OTAwMTU1M2FlZWUiLCJpYXQiOjE3NzU3NTc4NzYsImV4cCI6MTc3Njk2NzQ3Nn0.WL9K39iwryMdnCmRKEEv7xT9vPsUHA0cv7j0LAo1MHg"
+                Authorization: ``
             }
         })
             .then((res) => res.json())
@@ -18,14 +18,17 @@ const CommentArea = ({ asin }) => {
                 setComments(data)
             })
             .catch((err) => console.log(err))
+    }
 
+    useEffect(() => {
+        fetchComments()
     }, [asin])
 
     return (
         <div>
             <h5>Recensioni del libro</h5>
 
-            <CommentsList comments={comments} />
+            <CommentsList comments={comments} refreshComments={fetchComments} />
 
             <AddComment asin={asin} />
             

@@ -1,0 +1,12 @@
+.comment-area {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #e5e5e5;
+}
+
+.comment-area h5 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}

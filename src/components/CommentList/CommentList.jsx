@@ -1,10 +1,11 @@
 import SingleComment from "../SingleComment/SingleComment"
+import "./CommentList.css"
 
-const CommentsList = ({ comments }) => {
+const CommentsList = ({ comments, refreshComments }) => {
     return (
-        <div>
+        <div className="comment-list">
             {comments.map((c) => (
-                <SingleComment key={c._id} comment={c} />
+                <SingleComment key={c._id} comment={c} refreshComments={refreshComments} />
             ))}
         </div>
     )

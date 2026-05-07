@@ -2,7 +2,7 @@ import { useState } from "react"
 import "./AddComment.css"
 
 const AddComment = ({ asin, refreshComments }) => {
-    // Tiene in memoria il nuovo commento prima dell'invio.
+    // Salva i dati del form prima dell'invio.
     const [newComment, setNewComment] = useState({
         comment: "",
         // elementId deve corrispondere all'asin del libro selezionato.
@@ -30,6 +30,7 @@ const AddComment = ({ asin, refreshComments }) => {
             })
             .then((data) => {
                 console.log("Commento salvato:", data)
+                // Aggiorna la lista dopo il salvataggio.
                 refreshComments()
             })
             .catch((err) => console.log(err.message))
@@ -51,7 +52,7 @@ const AddComment = ({ asin, refreshComments }) => {
 
             <div className="stars-wrapper">
                 {[1, 2, 3, 4, 5].map((star) => (
-                    // Ogni stella aggiorna il voto del commento.
+                    // Aggiorna il voto quando clicco su una stella.
                     <span className="star"
                         key={star}
                         style={{

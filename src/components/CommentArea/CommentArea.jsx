@@ -5,8 +5,10 @@ import "./CommentArea.css"
 
 const CommentArea = ({ asin }) => {
 
+    // Contiene i commenti del libro selezionato.
     const [comments, setComments] = useState([])
 
+    // Recupera i commenti collegati all'asin del libro.
     const fetchComments = () => {
         fetch(`https://striveschool-api.herokuapp.com/api/books/${asin}/comments/`, {
             headers: {
@@ -21,6 +23,7 @@ const CommentArea = ({ asin }) => {
     }
 
     useEffect(() => {
+        // Ricarica i commenti quando cambia il libro selezionato.
         fetchComments()
     }, [asin])
 

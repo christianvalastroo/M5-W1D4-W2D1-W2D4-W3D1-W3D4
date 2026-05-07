@@ -2,6 +2,7 @@ import "./SingleComment.css"
 
 const SingleComment = ({ comment, refreshComments }) => {
 
+    // Elimina il commento e poi aggiorna la lista.
     const deleteComment = () => {
         fetch(`https://striveschool-api.herokuapp.com/api/comments/${comment._id}`, {
             method: "DELETE",

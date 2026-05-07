@@ -4,16 +4,16 @@ Piccola applicazione realizzata con **React + Vite** per mostrare un catalogo di
 
 ## ✨ Cosa ho realizzato
 
-- Una **navbar** con il nome del progetto e i link principali
+- Una **navbar** con il nome del progetto, i link principali e il campo di ricerca
 - Un componente **Welcome** con messaggio di benvenuto
 - Un componente **AllTheBooks** che mostra i libri in una griglia responsive
-- Una barra di ricerca per filtrare i libri per titolo
+- Ricerca dei libri per titolo dalla navbar
 - Un messaggio di avviso quando la ricerca non trova risultati
 - Un componente **SingleBook** per visualizzare ogni libro come card
 - Card selezionabili con click sulla copertina
 - Un'area commenti collegata al libro selezionato
 - Recupero delle recensioni tramite API esterna
-- Aggiunta di nuove recensioni con testo e valutazione
+- Aggiunta di nuove recensioni con testo e valutazione, con aggiornamento automatico della lista
 - Eliminazione delle recensioni esistenti
 - Un **footer** che rimane in basso quando la pagina ha poco contenuto
 - L'integrazione dei dati dei libri da file **JSON**
@@ -57,13 +57,13 @@ src/
 ## 📖 Componenti principali
 
 ### `MyNav`
-Gestisce la barra di navigazione superiore con brand e link.
+Gestisce la barra di navigazione superiore con brand, link e campo di ricerca. Il testo scritto nell'input viene salvato nello stato di `App` tramite `setSearch`.
 
 ### `Welcome`
 Mostra un alert di benvenuto all'utente.
 
 ### `AllTheBooks`
-Importa i libri dal file `fantasy.json`, li filtra in base al testo cercato e li renderizza in una griglia responsive.
+Importa i libri dal file `fantasy.json`, riceve `search` da `App`, filtra i libri in base al titolo e li renderizza in una griglia responsive.
 
 ### `SingleBook`
 Riceve un libro tramite `props` e mostra:
@@ -75,7 +75,7 @@ Riceve un libro tramite `props` e mostra:
 La card può essere selezionata cliccando sulla copertina. Quando un libro viene selezionato, mostra il componente `CommentArea` collegato all'`asin` del libro.
 
 ### `CommentArea`
-Gestisce lo stato delle recensioni del libro selezionato. Recupera i commenti dall'API usando l'`asin` ricevuto da `SingleBook` e passa i dati a `CommentList` e `AddComment`.
+Gestisce lo stato delle recensioni del libro selezionato. Recupera i commenti dall'API usando l'`asin` ricevuto da `SingleBook` e passa la funzione di aggiornamento a `CommentList` e `AddComment`.
 
 ### `CommentList`
 Riceve l'array dei commenti e renderizza un componente `SingleComment` per ogni recensione.
@@ -84,7 +84,7 @@ Riceve l'array dei commenti e renderizza un componente `SingleComment` per ogni 
 Mostra il testo della recensione, il voto e il pulsante per eliminare il commento. Dopo l'eliminazione richiama la funzione di refresh per aggiornare la lista.
 
 ### `AddComment`
-Contiene il form per inserire una nuova recensione. Permette di scrivere il commento, scegliere un voto da 1 a 5 stelle e inviare i dati all'API.
+Contiene il form per inserire una nuova recensione. Permette di scrivere il commento, scegliere un voto da 1 a 5 stelle e inviare i dati all'API. Dopo il salvataggio richiama il refresh dei commenti.
 
 ### `MyFooter`
 Mostra il footer finale della pagina. Il layout principale fa in modo che resti in basso quando il contenuto è poco.
@@ -138,10 +138,10 @@ Al momento l'app:
 - mostra la navbar
 - visualizza il messaggio di benvenuto
 - stampa i libri fantasy in una griglia
-- permette di cercare un libro per titolo
+- permette di cercare un libro per titolo dalla navbar
 - mostra un alert se non ci sono risultati
 - permette di selezionare una card
 - mostra le recensioni del libro selezionato
-- permette di aggiungere una recensione
+- permette di aggiungere una recensione e aggiornare subito la lista
 - permette di eliminare una recensione
 - mostra il footer in fondo alla pagina

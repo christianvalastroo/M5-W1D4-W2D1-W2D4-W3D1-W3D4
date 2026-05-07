@@ -6,6 +6,7 @@ import "./App.css"
 import { useState } from "react"
 
 const App = () => {
+  // Stato usato dalla navbar per filtrare i libri.
   const [search, setSearch] = useState("")
 
   return (
@@ -20,7 +21,7 @@ const App = () => {
       <main className="main-content">
         <Welcome />
 
-        {/* Lista dei libri con barra di ricerca interna. */}
+        {/* Lista dei libri filtrata dal testo scritto nella navbar. */}
         <AllTheBooks
           search={search}
         />

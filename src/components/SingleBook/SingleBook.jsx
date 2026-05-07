@@ -5,7 +5,7 @@ import CommentArea from '../CommentArea/CommentArea';
 
 const SingleBook = (props) => {
 
-    // Indica se il libro è selezionato e quindi mostra i commenti.
+    // Quando il libro è selezionato, mostra l'area commenti.
     const [selected, setSelected] = useState(false)
 
     return (

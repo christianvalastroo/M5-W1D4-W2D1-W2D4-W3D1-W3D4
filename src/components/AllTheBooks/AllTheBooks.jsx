@@ -1,11 +1,11 @@
 import { Container, Row, Col } from "react-bootstrap"
 import fantasy from "../../books/fantasy.json"
 import SingleBook from "../SingleBook/SingleBook"
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert"
 
-const AllTheBooks = ({search}) => {
+const AllTheBooks = ({ search }) => {
 
-    // Mostra solo i libri che contengono il testo cercato nel titolo.
+    // Filtra i libri in base al testo ricevuto dalla navbar.
     const filteredBooks = fantasy.filter((book) =>
         book.title.toLowerCase().includes(search.toLowerCase())
     )
@@ -16,7 +16,7 @@ const AllTheBooks = ({search}) => {
 
                 {filteredBooks.length > 0 ? (
 
-                    // Crea una card per ogni libro filtrato.
+                    // Crea una card per ogni libro trovato.
                     filteredBooks.map((book) => (
                         <Col md={3} key={book.asin}>
                             <SingleBook

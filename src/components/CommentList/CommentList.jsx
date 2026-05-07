@@ -4,7 +4,7 @@ import "./CommentList.css"
 const CommentsList = ({ comments, refreshComments }) => {
     return (
         <div className="comment-list">
-            {/* Stampa ogni commento usando il componente dedicato. */}
+            {/* Mostra ogni commento con il suo componente. */}
             {comments.map((c) => (
                 <SingleComment key={c._id} comment={c} refreshComments={refreshComments} />
             ))}

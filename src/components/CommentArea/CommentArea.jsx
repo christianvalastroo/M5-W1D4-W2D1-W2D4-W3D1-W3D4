@@ -3,14 +3,13 @@ import CommentsList from "../CommentList/CommentList"
 import AddComment from "../AddComment/AddComment"
 import "./CommentArea.css"
 
-const CommentArea = ({ asin }) => {
-
-    // Contiene i commenti del libro selezionato.
+const CommentArea = ({ selected }) => {
     const [comments, setComments] = useState([])
 
-    // Recupera i commenti collegati all'asin del libro.
     const fetchComments = () => {
-        fetch(`https://striveschool-api.herokuapp.com/api/books/${asin}/comments/`, {
+        if (!selected) return
+
+        fetch(`https://striveschool-api.herokuapp.com/api/comments/${selected}`, {
             headers: {
                 Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ3ZWEyYzg5ODA5OTAwMTU1M2FlZWUiLCJpYXQiOjE3NzU3NTc4NzYsImV4cCI6MTc3Njk2NzQ3Nn0.WL9K39iwryMdnCmRKEEv7xT9vPsUHA0cv7j0LAo1MHg`
             }
@@ -23,18 +22,28 @@ const CommentArea = ({ asin }) => {
     }
 
     useEffect(() => {
-        // Ricarica i commenti quando cambia il libro selezionato.
         fetchComments()
-    }, [asin])
+    }, [selected])
 
     return (
         <div className="comment-area">
             <h5>Recensioni del libro</h5>
 
-            <CommentsList comments={comments} refreshComments={fetchComments} />
+            {!selected ? (
+                <p>Seleziona un libro per vedere le recensioni</p>
+            ) : (
+                <>
+                    <CommentsList
+                        comments={comments}
+                        refreshComments={fetchComments}
+                    />
 
-            <AddComment asin={asin} refreshComments={fetchComments} />
-            
+                    <AddComment
+                        selected={selected}
+                        refreshComments={fetchComments}
+                    />
+                </>
+            )}
         </div>
     )
 }

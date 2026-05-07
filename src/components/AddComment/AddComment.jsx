@@ -1,26 +1,27 @@
 import { useState } from "react"
 import "./AddComment.css"
 
-const AddComment = ({ asin, refreshComments }) => {
-    // Salva i dati del form prima dell'invio.
+const AddComment = ({ selected, refreshComments }) => {
     const [newComment, setNewComment] = useState({
         comment: "",
-        // elementId deve corrispondere all'asin del libro selezionato.
-        rate: 0,
-        elementId: asin
+        rate: 0
     })
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        // Invia il commento alle API di Strive School.
+        const commentToSend = {
+            ...newComment,
+            elementId: selected
+        }
+
         fetch("https://striveschool-api.herokuapp.com/api/comments", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ3ZWEyYzg5ODA5OTAwMTU1M2FlZWUiLCJpYXQiOjE3NzU3NTc4NzYsImV4cCI6MTc3Njk2NzQ3Nn0.WL9K39iwryMdnCmRKEEv7xT9vPsUHA0cv7j0LAo1MHg`
             },
-            body: JSON.stringify(newComment)
+            body: JSON.stringify(commentToSend)
         })
             .then((res) => {
                 if (!res.ok) {
@@ -30,15 +31,19 @@ const AddComment = ({ asin, refreshComments }) => {
             })
             .then((data) => {
                 console.log("Commento salvato:", data)
-                // Aggiorna la lista dopo il salvataggio.
                 refreshComments()
+                setNewComment({
+                    comment: "",
+                    rate: 0
+                })
             })
             .catch((err) => console.log(err.message))
     }
 
     return (
         <form className="add-comment-form" onSubmit={handleSubmit}>
-            <input className="add-comment-input"
+            <input
+                className="add-comment-input"
                 type="text"
                 placeholder="Scrivi una recensione"
                 value={newComment.comment}
@@ -52,8 +57,8 @@ const AddComment = ({ asin, refreshComments }) => {
 
             <div className="stars-wrapper">
                 {[1, 2, 3, 4, 5].map((star) => (
-                    // Aggiorna il voto quando clicco su una stella.
-                    <span className="star"
+                    <span
+                        className="star"
                         key={star}
                         style={{
                             cursor: "pointer",
@@ -71,7 +76,9 @@ const AddComment = ({ asin, refreshComments }) => {
                 ))}
             </div>
 
-            <button className="add-comment-btn" type="submit">Invia</button>
+            <button className="add-comment-btn" type="submit">
+                Invia
+            </button>
         </form>
     )
 }

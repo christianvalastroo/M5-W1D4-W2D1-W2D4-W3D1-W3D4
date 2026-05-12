@@ -5,11 +5,13 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"
 import "./CommentArea.css"
 
 class CommentArea extends Component {
+    // Mantiene la lista dei commenti e lo stato di caricamento.
     state = {
         comments: [],
         isLoading: false
     }
 
+    // Recupera i commenti del libro selezionato.
     fetchComments = () => {
         if (!this.props.selected) return
 
@@ -17,7 +19,7 @@ class CommentArea extends Component {
 
         fetch(`https://striveschool-api.herokuapp.com/api/comments/${this.props.selected}`, {
             headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ3ZWEyYzg5ODA5OTAwMTU1M2FlZWUiLCJpYXQiOjE3NzU3NTc4NzYsImV4cCI6MTc3Njk2NzQ3Nn0.WL9K39iwryMdnCmRKEEv7xT9vPsUHA0cv7j0LAo1MHg`
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NTVhZWJhMGYxMjAwMTUyZTc3NmUiLCJpYXQiOjE3Nzc1NzIzNzAsImV4cCI6MTc3ODc4MTk3MH0.dy6gGBLPrFz2TNWeWwcIWhVvTauLyAHGaKmx8kCrh-c`
             }
         })
             .then((res) => {
@@ -36,6 +38,7 @@ class CommentArea extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        // Quando cambia il libro selezionato, ricarica le recensioni.
         if (prevProps.selected !== this.props.selected) {
             this.fetchComments()
         }
@@ -46,6 +49,7 @@ class CommentArea extends Component {
             <div className="comment-area">
                 <h5>Recensioni del libro</h5>
 
+                {/* Mostra un messaggio, il loader oppure la lista dei commenti. */}
                 {!this.props.selected ? (
                     <p>Seleziona un libro per vedere le recensioni</p>
                 ) : this.state.isLoading ? (

@@ -3,12 +3,16 @@ import Card from "react-bootstrap/Card"
 import { ThemeHome } from "../../context/ThemeHome/ThemeHome"
 import "./SingleBook.css"
 
+import { Link } from "react-router-dom"
+import Button from "react-bootstrap/Button"
+
 const SingleBook = (props) => {
     const { theme } = useContext(ThemeHome)
 
     return (
         <>
 
+            {/* Al click sulla card salvo l'asin del libro selezionato. */}
             <Card
                 className={`book-card h-100 w-100 d-flex flex-column ${props.selected === props.asin ? "selected" : ""} ${theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"}`}
                 onClick={() => props.setSelected(props.asin)}
@@ -29,6 +33,16 @@ const SingleBook = (props) => {
                         {props.price} €
                     </Card.Text>
                 </Card.Body>
+
+                {/* Link alla pagina dettaglio del libro corrente. */}
+                <Button
+                    as={Link}
+                    to={`/book/${props.asin}`}
+                    variant="primary"
+                    size="sm"
+                >
+                    Dettaglio
+                </Button>
 
             </Card>
 

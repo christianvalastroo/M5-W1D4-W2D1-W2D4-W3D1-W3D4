@@ -22,7 +22,7 @@ class CommentArea extends Component {
 
         fetch(`https://striveschool-api.herokuapp.com/api/comments/${this.props.selected}`, {
             headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NTVhZWJhMGYxMjAwMTUyZTc3NmUiLCJpYXQiOjE3Nzc1NzIzNzAsImV4cCI6MTc3ODc4MTk3MH0.dy6gGBLPrFz2TNWeWwcIWhVvTauLyAHGaKmx8kCrh-c`
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2YTA3MGU3ZGQ2M2FhMTAwMTUxM2RlNzEiLCJpYXQiOjE3Nzg4NDczNTcsImV4cCI6MTc4MDA1Njk1N30.q7xJjkjhZlwSD75rGPKC3vsd8FftiLrT_jvuascRslA`
             }
         })
             .then((res) => {

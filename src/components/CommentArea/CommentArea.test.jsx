@@ -2,6 +2,8 @@ import { render, screen } from "@testing-library/react"
 import CommentArea from "./CommentArea"
 import { ThemeProvider } from "../../context/ThemeHome/ThemeHome"
 
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"
+
 describe("CommentArea component", () => {
 
     it("should render comment area title", () => {
@@ -28,5 +30,18 @@ describe("CommentArea component", () => {
         const comment = screen.queryByText(/commento/i)
 
         expect(comment).not.toBeInTheDocument()
+    })
+
+    it("should render loading spinner", () => {
+
+        render(
+            <ThemeProvider>
+                <LoadingSpinner />
+            </ThemeProvider>
+        )
+
+        const spinner = screen.getByRole("status")
+
+        expect(spinner).toBeInTheDocument()
     })
 })

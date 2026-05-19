@@ -44,4 +44,31 @@ describe("CommentArea component", () => {
 
         expect(spinner).toBeInTheDocument()
     })
+
+    it("should load and render comments", async () => {
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () =>
+                    Promise.resolve([
+                        {
+                            _id: "1",
+                            comment: "Bellissimo libro",
+                            rate: 5,
+                            elementId: "123",
+                        },
+                    ]),
+            })
+        )
+
+        render(
+            <ThemeProvider>
+                <CommentArea selected="123" />
+            </ThemeProvider>
+        )
+
+        const comment = await screen.findByText(/bellissimo libro/i)
+
+        expect(comment).toBeInTheDocument()
+    })
 })
